@@ -2,12 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WishWonder Inspired Site</title>
     <link th:href="@{/main.css}" rel="stylesheet">
+    <img src="https://dk.pinterest.com/pin/665899494932459006/" alt="QR Code" class="qr-code">
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<h1>Wishlist!</h1>
+
+
+<div class="hero">
+    <h1>Get Started with WishWonder</h1>
+    <p>All your wishes collected in one place</p>
+    <p>WishWonder makes it easy for you to save and share all your wishes with friends and family</p>
+    <a href="#" class="cta">Create a Profile</a>
+        <p>Download the app:</p>
+        <img src="path-to-your-qr-code.png" alt="QR Code" class="qr-code">
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
