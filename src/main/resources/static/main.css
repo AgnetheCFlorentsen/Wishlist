@@ -5,6 +5,9 @@ body {
     background-color: white;
     color: #333;
     background-image: url("https://i.pinimg.com/736x/12/dc/8e/12dc8e39ba96b55fa325e7bbd4dd6751.jpg");
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 img {
