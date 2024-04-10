@@ -4,6 +4,7 @@ body {
     padding: 0;
     background-color: white;
     color: #333;
+    background-image: url("https://i.pinimg.com/736x/12/dc/8e/12dc8e39ba96b55fa325e7bbd4dd6751.jpg");
 }
 
 img {
@@ -297,8 +298,8 @@ body, html {
 }
 
 .qr-code {
-    width: 150px; /* Eksempel på bredde */
-    height: 150px; /* Eksempel på højde */
+    width: 150px;
+    height: 150px;
 }
 
 .cta {
@@ -333,7 +334,9 @@ body, html {
 .phones .phone {
     width: 200px; /* Adjust as needed */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
+
 }
+
 
 
 
