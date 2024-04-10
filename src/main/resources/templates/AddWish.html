@@ -24,12 +24,16 @@
     <p>
         <label for="store">Store:</label>
         <input type="text" id="store" name="store" th:field="*{store}"/>
-
+    </p>
+    <p>
+        <label for="amount">Amount:</label>
+        <input type="text" id="amount" name="amount" th:field="*{amount}"/>
+    </p>
 
     <p>
         <label for="wishList">Select a list:</label>
         <select id="wishList" name="wishList" th:field="*{wishList}">
-            <option th:each="WishList : ${wishlists}" th:value="${WishList}" th:text="${WishList.name}"></option>
+            <option th:each="WishList : ${wishlists}" th:value="${WishList.name}" th:text="${WishList.name}"></option>
         </select>
     </p>
 

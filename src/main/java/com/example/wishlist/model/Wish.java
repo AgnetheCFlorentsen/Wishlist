@@ -25,7 +25,9 @@ public class Wish {
 
     }
 
-    public Wish(){}
+    public Wish(){
+        this.amount = 1;
+    }
 
 
     public String getName() {
@@ -78,5 +80,9 @@ public class Wish {
 
     public String getWishList(){
         return wishList;
+    }
+
+    public void setWishList(String wishList){
+        this.wishList = wishList;
     }
 }

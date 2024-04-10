@@ -26,4 +26,19 @@ public class WishListService {
     public void addWish(Wish wish){
         repository.addWish(wish);
     }
+
+    public List<Wish> getWishes(String wishList){
+        return repository.getWishes(wishList);
+    }
+
+    /*public void deleteAWish(String wish, String wishList){
+        repository.deleteAWish(wish, wishList);
+    }*/
+
+    public WishList getAWishList(String wishList){
+        return repository.getAWishList(wishList);
+    }
+    public void deleteAWishList (WishList wishList) {
+        repository.deleteAWishList(wishList);
+    }
 }

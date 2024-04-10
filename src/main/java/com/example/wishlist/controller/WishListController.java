@@ -57,5 +57,24 @@ public class WishListController {
         return "redirect:/wishwonder";
     }
 
+    @GetMapping("/{name}/list")
+    public String showAll(@PathVariable String name, Model model) {
+        List<Wish> wishes = wishListService.getWishes(name);
+        System.out.println(name);
+        model.addAttribute("wishes", wishes);
+        return "Show_Wishes";
+    }
 
+    @GetMapping(path = "/{wishlist}/{wish}/delete")
+    public String deleteAWish (@PathVariable String wishlist, @PathVariable String wish, Model model){
+       // wishListService.deleteAWish(wish, wishlist);
+        return "redirect:/wishwonder";
+    }
+
+    @GetMapping(path = "/{wishlist}/delete")
+    public String deleteAWishList (@PathVariable String wishlist, Model model){
+        WishList wishListToDelete = wishListService.getAWishList(wishlist);
+        wishListService.deleteAWishList(wishListToDelete);
+        return "redirect:/wishwonder";
+    }
 }

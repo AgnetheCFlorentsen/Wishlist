@@ -18,10 +18,16 @@ public class WishList {
         this.name = name;
         this.wishes = new ArrayList<>();
     }
-    public WishList(){}
+    public WishList(){
+        this.wishes = new ArrayList<>();
+    }
 
     public String getName() {
         return name;
+    }
+
+    public List<Wish> getWishes(){
+        return wishes;
     }
 
     public void setName(String name) {

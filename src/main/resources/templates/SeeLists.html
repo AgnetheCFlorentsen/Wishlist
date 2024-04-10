@@ -16,9 +16,14 @@
     <tbody>
     <tr th:each="wishList : ${wishlists}" th:class="'highlight-bar'">
         <td>
-            <a th:text="${wishList.name}">Wishlist name</a>
+            <a th:href="@{ ${wishList.name} + '/list'}">
+                <button type="button" class="button" th:text="${wishList.name}"></button>
+            </a>
             <p>Description: <strong th:text="${wishList.description}"></strong></p>
             <p>Amount of items: <strong th:text="${wishList.amountOfWishes}"></strong></p>
+            <a th:href="@{${wishList.name} + '/delete'}">
+                <button type="button" class="button">Delete List</button>
+            </a>
             <div th:replace="~{fragments/footer :: footer}"></div>
         </td>
     </tr>
