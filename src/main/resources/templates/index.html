@@ -18,6 +18,61 @@
         <p>Download the app:</p>
         <img src="path-to-your-qr-code.png" alt="QR Code" class="qr-code">
 
-<div th:replace="~{fragments/footer :: footer}"></div>
+    <section class="statistics-section">
+        <div class="statistics-content">
+            <div class="text-content">
+                <h2>Save wishes from all your favorite brands</h2>
+                <p>WishWonder is one of the most popular places where you can save your wish lists. WishWonder is available on computer, as well as app on tablet and smartphone.</p>
+                <button class="cta">Create Wishlist</button>
+            </div>
+            <div class="data-content">
+                <div class="users">
+                    <h3>+2.8M</h3>
+                    <p>Users</p>
+                </div>
+                <div class="wishes">
+                    <h3>+90M</h3>
+                    <p>Wishes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="how-it-works-container">
+            <div class="phone-image-container">
+                <img src="path-to-phone-image.png" alt="App Screen" class="phone-image">
+                <!-- Flere billede eller ikoner omkring telefonen kan tilføjes her -->
+            </div>
+            <div class="how-it-works-content">
+                <h2>How does it work?</h2>
+                <h3>Created wishes and wishlists</h3>
+                <p>On WishWonder, you can create your wishes and wish lists with just a few clicks. Download the app for free and save all your wishes in one place.</p>
+                <a href="#" class="back-to-top">↑</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-app-section">
+        <div class="download-app-container">
+            <div class="download-app-content">
+                <h2>Get the WishWonder app for free!</h2>
+                <p>Download the WishWonder app and create your own wish lists, get inspired and share your lists with friends</p>
+                <div class="store-buttons">
+                    <a href="https://apps.apple.com/app/idYourAppID" class="app-store-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/App_Store_%28iOS%29.svg/512px-App_Store_%28iOS%29.svg.png" alt="Download on the App Store" class="app-store-button">
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=YourAppID" class="google-play-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Google_Play_2016_icon.svg/918px-Google_Play_2016_icon.svg.png" alt="Get it on Google Play" class="google-play-button">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="back-to-top-button">↑</a>
+    </section>
+
+
+</div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

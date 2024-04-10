@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show all wishes</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<table class="bar-list">
+    <thead>
+    <tr>
+        <th>Wishes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="Wish : ${wishes}" th:class="'highlight-bar'">
+        <td>
+            <a th:text="${Wish.name}">Wish name</a>
+            <p>Description: <strong th:text="${Wish.description}"></strong></p>
+            <p>Store: <strong th:text="${Wish.store}"></strong></p>
+            <p>Price: <strong th:text="${Wish.price}"></strong></p>
+            <p>Link: <strong th:text="${Wish.link}"></strong></p>
+            <p>Amount: <strong th:text="${Wish.amount}"></strong></p>
+            <a th:href="@{'/wishwonder/' + ${Wish.wishList} +'/' + ${Wish.name} + '/delete'}">
+                <button type="button" class="button">Delete</button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    <a th:href="@{'/wishwonder/createwish'}">
+        <button type="button" class="button">Add another wish!</button>
+    </a>
+</p>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

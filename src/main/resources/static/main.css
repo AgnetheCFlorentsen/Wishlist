@@ -33,41 +33,36 @@ img {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.site-header .logo-container {
-    display: flex;
-    align-items: center;
-}
-
 .site-header .logo {
-    height: 60px; /* More balanced size */
+    height: 60px;
     width: auto;
     transition: transform 0.3s ease;
 }
 
 .site-header .logo:hover {
-    transform: scale(1.05); /* Subtle hover effect */
+    transform: scale(1.05);
 }
 
 .site-header .header-title {
     flex-grow: 2;
     text-align: center;
-    font-size: 30px; /* Optimized size for professionalism */
-    font-family: 'Segoe UI', 'Copperplate', sans-serif; /* Fallback to a more common, professional font */
+    font-size: 30px;
+    font-family: 'Segoe UI', 'Copperplate', sans-serif;
     color: #285943;
-    letter-spacing: 1px; /* Adds more elegance to the title */
-    margin: 0 20px; /* Ensures text doesn’t touch the edges or logo */
+    letter-spacing: 1px;
+    margin: 0 20px;
 }
 
 nav {
     flex-grow: 1;
-    text-align: right; /* Aligns the nav to the right */
+    text-align: right;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: inline-flex; /* Aligns nav items in a row */
+    display: inline-flex;
 }
 
 nav ul li {
@@ -80,7 +75,6 @@ nav ul li a {
     padding: 5px 10px;
     border-radius: 5px;
     transition: color 0.3s ease;
-    overflow: hidden; /* Necessary for the pseudo-element to work correctly */
 }
 
 nav ul li a::after {
@@ -100,78 +94,40 @@ nav ul li a:hover, nav ul li a:focus {
 }
 
 nav ul li a:hover::after, nav ul li a:focus::after {
-    transform: scaleX(1); /* Underline expands on hover/focus */
+    transform: scaleX(1);
 }
-
-@keyframes logoEntry {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.site-header .logo {
-    animation: logoEntry 1s ease-out forwards;
-}
-
 
 footer {
-    background-image: linear-gradient(to top, #b6ffd7 0%, white 100%);
-    color: #3d8476;
+    background-color: white;
+    color: #285943;
     text-align: center;
-    padding: 40px 10px; /* Increased padding for more space */
-    margin-top: auto;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Subtle shadow above the footer for depth */
-}
-
-footer a {
-    color: #3d8476;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out, transform 0.2s ease;
-    display: inline-block; /* Allows transform */
+    padding: 20px 10px;
+    width: 100%;
 }
 
 footer a:hover {
     color: #285943;
-    transform: translateY(-3px); /* Slight lift effect */
+    transform: translateY(-3px);
 }
 
 .social-media {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Replaces margin-right for a more modern, flexible spacing */
-    padding: 20px 0; /* Adds vertical space around social media links */
+    gap: 15px;
+    padding: 20px 0;
 }
 
 .social-media a {
     background: white;
     padding: 10px;
-    border-radius: 50%; /* Circular backgrounds for icons */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds depth */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .social-media a:hover {
     background-color: #b6ffd7;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* More pronounced shadow on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
-/* Cool feature: Animated Gradient Background */
-@keyframes animatedBackground {
-    0% { background-position: 0 0; }
-    50% { background-position: 100% 0; }
-    100% { background-position: 0 0; }
-}
-
-footer {
-    background-size: 200% 100%;
-    animation: animatedBackground 30s infinite linear;
-}
-
 
 input[type="submit"]:hover {
     background-color: #285943;
@@ -180,21 +136,7 @@ input[type="submit"]:hover {
 
 input[type="text"]:focus {
     border-color: #66928a;
-    outline: 0;
     box-shadow: 0 0 0 2px rgba(108, 192, 173, 0.5);
-}
-
-body.add-a-wish {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8;
-    margin: 0;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
-
 }
 
 form {
@@ -204,7 +146,6 @@ form {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
-    flex: 1;
 }
 
 form p {
@@ -231,7 +172,7 @@ select {
 
 select {
     appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23606f7b" d="M7 10l5 5 5-5z"/></svg>'); /* Custom dropdown arrow */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23606f7b" d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 10px top 50%;
     background-size: 16px;
@@ -258,52 +199,32 @@ select:focus {
     box-shadow: 0 0 0 2px rgb(61, 132, 118);
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-form {
-    animation: slideUp 0.5s ease-out forwards;
-}
-
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-}
-
 .hero {
-    background-color: #f0f4f8; /* Light blue background as previously defined */
-    text-align: center;
+    background-color: #f0f4f8;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     padding: 50px;
-    color: #3D8476; /* Text color as previously defined */
+    color: #3D8476;
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 600px;
 }
 
 .hero h1 {
-    color: #285943; /* Darker green for headers as previously defined */
-    margin-bottom: 20px;
+    color: #285943;
     font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    color: #3D8476; /* Subtext color */
     margin-bottom: 10px;
 }
 
-.qr-code {
-    width: 150px;
-    height: 150px;
-}
-
 .cta {
-    background-color: #b6ffd7; /* Button background color */
+    background-color: #b6ffd7;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -313,30 +234,264 @@ body, html {
     margin-top: 20px;
 }
 
+.cta:hover {
+    background-color: #8ce5ba;
+    transform: scale(1.05);
+}
+
 .download-section p {
     margin-top: 30px;
 }
 
-.qr-code {
-    margin-top: 10px;
-    width: 100px; /* Adjust as per your QR code image size */
-    height: auto;
-}
-
-.phones {
+.statistics-section {
     display: flex;
-    justify-content: center;
-    gap: 20px; /* Space between phones */
-    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Example for a single phone */
-.phones .phone {
-    width: 200px; /* Adjust as needed */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for depth */
-
+.statistics-section .content h2 {
+    color: #285943;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.statistics-section .content p {
+    max-width: 600px;
+    color: #3D8476FF;
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0 auto 32px;
+}
+
+.statistics-section .cta {
+    background-image: linear-gradient(45deg, #b6ffd7, #3D8476FF);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 30px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.statistics-section .cta:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+.statistics-section .statistics-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.statistics-section .text-content,
+.statistics-section .data-content {
+    max-width: 50%;
+    padding-right: 20px;
+}
+
+.statistics-section .data-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.statistics .users, .statistics .wishes {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.statistics h3 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: #3D8476FF;
+    font-weight: 800;
+}
+
+.statistics p {
+    font-size: 22px;
+    color: #3D8476FF;
+}
+
+.statistics div::after {
+    background: #c8e6c9;
+}
+
+@media (max-width: 768px) {
+    .statistics-section .statistics-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .statistics-section .text-content,
+    .statistics-section .data-content {
+        max-width: 100%;
+    }
+
+    .statistics-section .data-content {
+        align-items: center;
+    }
+
+    .statistics {
+        justify-content: center;
+    }
+
+    .statistics .users, .statistics .wishes {
+        margin-bottom: 30px;
+    }
+
+    .how-it-works-container {
+        flex-direction: column;
+    }
+
+    .phone-image-container,
+    .how-it-works-content {
+        flex-basis: 100%;
+    }
+
+    .download-app-section {
+        background: #3D8476FF;
+        padding: 100px 20px;
+        text-align: center;
+    }
+
+    .download-app-container {
+        flex-direction: column;
+    }
+
+    .download-app-content h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .download-app-content p {
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .store-buttons a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #3D8476FF;
+        background: white;
+        border-radius: 5px;
+    }
+
+    .store-buttons a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
 
+    .qr-code {
+        max-width: 50px;
+        height: auto;
+    }
 
+    .app-store-button,
+    .google-play-button {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .download-app-graphic {
+        top: -50px;
+        right: 0;
+    }
+
+    .back-to-top-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* ... (rest of your styles) ... */
+    }
+
+    .header-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .login-button {
+        background-color: #b6ffd7;
+        color: #285943;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .login-button:hover, .login-button:focus {
+        background-color: #8ce5ba;
+        color: white;
+    }
+
+    /* Existing styles remain unchanged */
+    .login-box {
+        border: 2px solid #285943; /* More visible border */
+        padding: 5px;
+        border-radius: 4px;
+        display: inline-flex; /* To align the button nicely */
+        align-items: center; /* Centers the button vertically within the box */
+        margin-left: 20px; /* Space from the navigation */
+    }
+
+    .login-button {
+        background-color: #b6ffd7;
+        color: #285943;
+        padding: 8px 16px; /* Adjust padding as needed */
+        border-radius: 3px; /* Slightly rounded corners */
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.2s, color 0.2s;
+        border: none; /* Ensures no border is applied to the button itself */
+    }
+
+    .login-button:hover, .login-button:focus {
+        background-color: #8ce5ba;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+ 
+        .qr-code {
+            width: 50px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .app-store-button, .google-play-button {
+            width: 40px; /* Adjust width of the buttons */
+            height: auto; /* Maintain aspect ratio */
+        }
+    }
+
+}
