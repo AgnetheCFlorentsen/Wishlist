@@ -59,8 +59,11 @@ public class Wish {
     }
 
     public void setLink(String link) {
-        this.link = link;
-    }
+       this.link = link;
+
+       }
+
+
 
     public int getAmount() {
         return amount;

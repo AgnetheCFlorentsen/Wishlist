@@ -54,27 +54,43 @@ public class WishListController {
     @PostMapping("/savewish")
     public String createWish(@ModelAttribute Wish wish){
         wishListService.addWish(wish);
-        return "redirect:/wishwonder";
+        WishList wishlist = wishListService.getAWishList(wish.getWishList());
+        return "redirect:/wishwonder/lists";
     }
 
     @GetMapping("/{name}/list")
     public String showAll(@PathVariable String name, Model model) {
         List<Wish> wishes = wishListService.getWishes(name);
-        System.out.println(name);
         model.addAttribute("wishes", wishes);
         return "Show_Wishes";
     }
 
     @GetMapping(path = "/{wishlist}/{wish}/delete")
     public String deleteAWish (@PathVariable String wishlist, @PathVariable String wish, Model model){
-       // wishListService.deleteAWish(wish, wishlist);
-        return "redirect:/wishwonder";
+        WishList wishList1 = wishListService.getAWishList(wishlist);
+        Wish wishToDelete = wishListService.getAWish(wish, wishlist);
+        wishListService.deleteAWish(wishToDelete, wishList1);
+        return "redirect:/wishwonder/{wishlist}/list";
     }
 
     @GetMapping(path = "/{wishlist}/delete")
     public String deleteAWishList (@PathVariable String wishlist, Model model){
         WishList wishListToDelete = wishListService.getAWishList(wishlist);
         wishListService.deleteAWishList(wishListToDelete);
-        return "redirect:/wishwonder";
+        return "redirect:/wishwonder/lists";
     }
+    @GetMapping(path="/{wishlist}/{wish}/edit")
+    public String updateWish (@PathVariable String wish, @PathVariable String wishlist, Model model){
+        Wish wishToUpdate = wishListService.getAWish(wish, wishlist);
+        model.addAttribute("wish", wishToUpdate);;
+        return "UpdateWish";
+    }
+
+    @PostMapping(path="/update")
+    public String updateWish(Wish wish){
+        wishListService.updateAWish(wish);
+        System.out.println(wish.getDescription());
+        return "redirect:/wishwonder/lists";
+    }
+
 }
