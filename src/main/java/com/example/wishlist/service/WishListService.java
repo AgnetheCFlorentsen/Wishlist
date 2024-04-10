@@ -31,14 +31,22 @@ public class WishListService {
         return repository.getWishes(wishList);
     }
 
-    /*public void deleteAWish(String wish, String wishList){
+    public Wish getAWish(String wish, String wishList){
+        return repository.getAWish(wish, wishList);
+    }
+
+    public void deleteAWish(Wish wish, WishList wishList){
         repository.deleteAWish(wish, wishList);
-    }*/
+    }
 
     public WishList getAWishList(String wishList){
         return repository.getAWishList(wishList);
     }
     public void deleteAWishList (WishList wishList) {
         repository.deleteAWishList(wishList);
+    }
+
+    public void updateAWish(Wish wish){
+        repository.updateWish(wish);
     }
 }

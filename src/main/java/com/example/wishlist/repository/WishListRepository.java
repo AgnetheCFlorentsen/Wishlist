@@ -10,6 +10,8 @@ import java.util.List;
 
 public class WishListRepository {
 
+    private String wishListWithWishToUpdate ="";
+
     private List<WishList> wishlistlist = new ArrayList<WishList>();
 
     public WishListRepository() {
@@ -40,6 +42,7 @@ public class WishListRepository {
     public List<Wish> getWishes(String wishList) {
         for (WishList w : wishlistlist) {
             if (w.getName().equalsIgnoreCase(wishList)) {
+                System.out.println(w.getDescription());
                 return w.getWishes();
 
             }
@@ -47,18 +50,25 @@ public class WishListRepository {
         return null;
     }
 
-   /* public Wish getAWish(String wish, String wishList) {
+   public Wish getAWish(String wish, String wishList) {
+        wishListWithWishToUpdate = wishList;
         for (WishList w : wishlistlist) {
             if (w.getName().equalsIgnoreCase(wishList)) {
                 for (Wish wi : w.getWishes()) {
                     if (wi.getName().equalsIgnoreCase(wish)){
-
+                        return wi;
                     }
 
                 }
             }
         }
-    }*/
+        return null;
+    }
+
+    public void deleteAWish(Wish wish, WishList wishList){
+        wishList.deleteWish(wish);
+
+    }
 
     public WishList getAWishList(String wishList) {
         for (WishList w : wishlistlist) {
@@ -71,6 +81,23 @@ public class WishListRepository {
 
     public void deleteAWishList(WishList wishList){
         wishlistlist.remove(wishList);
+    }
+
+    public void updateWish(Wish wish) {
+        for (WishList w : wishlistlist) {
+            if (w.getName().equalsIgnoreCase(wishListWithWishToUpdate)) {
+                for (Wish wi : w.getWishes()) {
+                    if (wi.getName().equalsIgnoreCase(wish.getName())) {
+                        wi.setDescription(wish.getDescription());
+                        System.out.println(wi.getDescription());
+                        wi.setAmount(wish.getAmount());
+                        wi.setStore(wish.getStore());
+                        wi.setLink(wish.getLink());
+                        wi.setPrice(wish.getPrice());
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update your wish</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<form action="/wishwonder/update" method="post" th:object="${wish}">
+    <p th:text="${wish.name}">
+    </p>
+    <p>
+        <label>Name:</label>
+        <input name="name" type="name" th:value="${wish.name}"/>
+    </p>
+    <p>
+        <label>Description:</label>
+        <input name="description" type="description" th:value="${wish.description}"/>
+    </p>
+    <p>
+        <label>Store:</label>
+        <input name="store" type="store" th:value="${wish.store}"/>
+    </p>
+    <p>
+        <label>Price:</label>
+        <input name="price" type="price" th:value="${wish.price}"/>
+    </p>
+    <p>
+        <label>Amount:</label>
+        <input name="amount" type="amount" th:value="${wish.amount}"/>
+    </p>
+    <br>
+    <p>
+        <button type="submit" class="button">Update wish</button>
+
+        <a th:href="@{'/wishwonder'}">
+            <button type="button" class="button">Cancel</button>
+        </a>
+    </p>
+</form>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
