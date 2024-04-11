@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,19 +7,27 @@
 </head>
 <body class="create-a-wishlist">
 <div th:replace="~{fragments/header :: header}"></div>
-<form action="/wishwonder/savelist" th:object="${wishlist}" method="post">
-  <p>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" th:field="*{name}"/>
-  </p>
-  <p>
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" th:field="*{description}"/>
-  </p>
 
-  <input type="submit" value="Create wishlist" /></form>
+<main class="form-container">
+  <h1>Create Your Wishlist</h1>
 
-</form>
+  <!-- Wishlist creation form -->
+  <form action="/wishwonder/savelist" th:object="${wishlist}" method="post" class="wishlist-form">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" th:field="*{name}" placeholder="Enter wishlist name"/>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" th:field="*{description}" placeholder="Describe your wishlist"></textarea>
+    </div>
+    <button type="submit" class="btn-create-wishlist">Create Wishlist</button>
+  </form>
+
+  <!-- Decorative image -->
+  <img src="https://i.pinimg.com/originals/b3/09/32/b309326325d4db36383c5931d69356cc.png" alt="Decorative" class="decorative-image">
+</main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
