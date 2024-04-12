@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Your  wishlists</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
 </head>
-<body>
 <div th:replace="~{fragments/header :: header}"></div>
+<body>
+
 
 <table class="wishlist-list">
     <thead>
@@ -24,10 +26,11 @@
             <a th:href="@{${wishList.name} + '/delete'}">
                 <button type="button" class="button">Delete List</button>
             </a>
-            <div th:replace="~{fragments/footer :: footer}"></div>
+
         </td>
     </tr>
     </tbody>
 </table>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
