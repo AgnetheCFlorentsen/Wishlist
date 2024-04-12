@@ -22,6 +22,12 @@ public class WishList {
         this.wishes = new ArrayList<>();
     }
 
+    public WishList(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.wishes = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }

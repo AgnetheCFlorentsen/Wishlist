@@ -15,13 +15,12 @@ public class Wish {
 
     private String wishList;
 
-    public Wish (String name, String description, double price, String store, String wishList){
+    public Wish (String name, String description, double price, String link, int amount, String store){
         this.amount = 1;
         this.name = name;
         this.description = description;
         this.price = price;
         this.store=store;
-        this.wishList=wishList;
 
     }
 

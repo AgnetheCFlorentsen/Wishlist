@@ -1,0 +1,30 @@
+create database if not exists WishList default character set utf8;
+use WishList;
+drop table if exists WishLists;
+drop table if exists Wishes;
+drop table if exists WishList_Wish;
+
+create table WishLists (
+ID int auto_increment,
+Name varchar(30) not null,
+description varchar(250),
+primary key (ID)
+);
+
+create table Wishes (
+ID int auto_increment,
+Name varchar(30) not null,
+description varchar(250),
+price double,
+link varchar(100),
+amount int,
+store varchar(30),
+primary key (ID)
+);
+
+create table WishList_Wish (
+wish_ID int,
+WishList_ID int,
+primary key (wish_ID, WishList_ID),
+foreign key (wish_ID) references wishes(ID),
+foreign key (WishList_ID) references WishLists(ID));

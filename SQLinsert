@@ -1,0 +1,8 @@
+insert into wishlists (name, description) values ('wedding', 'wishes for a wonderful wedding');
+insert into wishes (name, description, price, store, link, amount) values ('plates', 'for eating', 230, 'imerco', 'google.dk', 4);
+insert into wishes (name, description, price, store, link, amount) values ('dress', 'to wear', 600, 'Veromoda', 'google.dk', 1);
+insert into wishes (name, description, price, store, amount) values ('Hat', 'bowlerhat', 400, 'hatten', 1);
+
+insert into wishlist_wish (wish_ID, wishlist_ID) values (1,1);
+insert into wishlist_wish (wish_ID, wishlist_ID) values (2,1);
+insert into wishlist_wish (wish_ID, wishlist_ID) values (3,1);
