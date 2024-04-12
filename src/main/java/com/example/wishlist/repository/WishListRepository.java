@@ -24,10 +24,6 @@ public class WishListRepository {
     }
 
     public List<WishList> getWishLists() {
-        /*List<String> wishlistlistnames = new ArrayList<String>();
-        for (WishList w : wishlistlist){
-            wishlistlistnames.add(w.getName());
-        }*/
         return wishlistlist;
     }
 

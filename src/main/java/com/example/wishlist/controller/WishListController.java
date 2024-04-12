@@ -1,12 +1,16 @@
 package com.example.wishlist.controller;
 
 import com.example.wishlist.model.Wish;
+import com.example.wishlist.model.WishDTO;
 import com.example.wishlist.model.WishList;
+import com.example.wishlist.model.WishListDTO;
+import com.example.wishlist.repository.WishListRepositoryDB;
 import com.example.wishlist.service.WishListService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -14,6 +18,7 @@ import java.util.List;
 public class WishListController {
 
     private WishListService wishListService;
+    WishListRepositoryDB wdb = new WishListRepositoryDB();
 
     public WishListController(WishListService wishListService){
         this.wishListService = wishListService;
@@ -21,6 +26,9 @@ public class WishListController {
 
     @GetMapping("")
     public String getFrontPage(){
+        ArrayList<WishDTO> wish = wdb.getWishes();
+        ArrayList<WishListDTO> wishlist= wdb.getWishLists();
+        System.out.println(wdb.getAllWishLists(wishlist, wish));
         return "index";
     }
 
@@ -28,13 +36,15 @@ public class WishListController {
     public String getWishLists(Model model){
         List<WishList> wishLists = wishListService.getWishLists();
         model.addAttribute("wishlists", wishLists);
+       // System.out.println(wdb.getWishes());
+
         return "SeeLists";
     }
 
     @GetMapping("/createlist")
     public String createWishList(Model model){
         model.addAttribute("wishlist", new WishList());
-        return "reateWishList";
+        return "createWishList";
     }
 
     @PostMapping("/savelist")
@@ -93,10 +103,10 @@ public class WishListController {
         return "redirect:/wishwonder/lists";
     }
 
-    @ExceptionHandler(Exception.class)
+    /*@ExceptionHandler(Exception.class)
     public String handleError(Model model, Exception exception){
         model.addAttribute("message", "hej");
         return "errorpage";
-    }
+    }*/
 
 }
