@@ -34,7 +34,7 @@ public class WishListController {
     @GetMapping("/createlist")
     public String createWishList(Model model){
         model.addAttribute("wishlist", new WishList());
-        return "CreateWishList";
+        return "reateWishList";
     }
 
     @PostMapping("/savelist")
@@ -91,6 +91,12 @@ public class WishListController {
         wishListService.updateAWish(wish);
         System.out.println(wish.getDescription());
         return "redirect:/wishwonder/lists";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleError(Model model, Exception exception){
+        model.addAttribute("message", "hej");
+        return "errorpage";
     }
 
 }

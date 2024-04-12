@@ -88,4 +88,5 @@ public class Wish {
     public void setWishList(String wishList){
         this.wishList = wishList;
     }
+
 }
