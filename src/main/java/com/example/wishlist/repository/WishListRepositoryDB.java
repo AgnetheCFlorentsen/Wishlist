@@ -32,10 +32,10 @@ public class WishListRepositoryDB {
             while (rs.next()) {
                 allWishes.add(new WishDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Cannot connect to database");
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
         return allWishes;
     }
 
