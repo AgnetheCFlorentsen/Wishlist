@@ -20,6 +20,8 @@ public class WishListRepositoryDB {
     @Value("bNtV!AgN7izA!Kw")
     private String pwd;
 
+    String wishListWithWishToUpdate = "";
+
 
     public ArrayList<WishDTO> getWishes() {
         ArrayList<WishDTO> allWishes = new ArrayList<>();
@@ -87,24 +89,42 @@ public class WishListRepositoryDB {
             while (rs.next()) {
                 allWishLists.add(new WishListDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Cannot connect to database");
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
         return allWishLists;
     }
 
-    public List<WishList> getAllWishLists (ArrayList<WishListDTO> allWishLists, ArrayList<WishDTO> allWishes) {
+    public void saveAWishList(WishList wishList) {
+        String name = wishList.getName();
+        String description = wishList.getDescription();
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "insert into wishlists (name, description) values (?, ?);";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            //ps.setInt(1, id);
+            ps.setString(1, name);
+            ps.setString(2, description);
+            int rs = ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<WishList> getAllWishLists(ArrayList<WishListDTO> allWishLists, ArrayList<WishDTO> allWishes) {
         List<WishList> wishListList = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
             for (WishListDTO w : allWishLists) {
                 WishList wishList = new WishList(w.getName(), w.getDescription());
 
                 int id = w.getID();
-                String SQL = "SELECT * FROM WISHLIST_WISH WHERE WISHLIST_ID=?;";
+                String SQL = "SELECT * FROM WISHLISTS WHERE ID=?;";
                 PreparedStatement ps = connection.prepareStatement(SQL);
                 //ps.setInt(1, id);
-                ps.setInt(1, 1);
+                ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     for (WishDTO wi : allWishes) {
@@ -126,4 +146,121 @@ public class WishListRepositoryDB {
         return wishListList;
 
     }
+
+    public List<Wish> getWishes(String wishList) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishList);
+            ResultSet rs = ps.executeQuery();
+            int wishListID = 0;
+            while (rs.next()) {
+                wishListID = rs.getInt(1);
+            }
+
+            String SQL1 = "SELECT * FROM WISHES WHERE WISHLIST_ID=?;";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setInt(1, wishListID);
+            ResultSet rs1 = ps1.executeQuery();
+            List<Wish> wishes = new ArrayList<>();
+            while (rs1.next()) {
+                Wish wish = new Wish(rs1.getString(2), rs1.getString(3), rs1.getDouble(4), rs1.getString(5), rs1.getInt(6), rs1.getString(7));
+                wish.setWishList(wishList);
+                wishes.add(wish);
+            }
+            wishListWithWishToUpdate = wishList;
+            return wishes;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    public Wish getOneWish(List<Wish>wishes, String wish) {
+        for (Wish w : wishes) {
+            if (w.getName().equalsIgnoreCase(wish)) {
+                return w;
+            }
+        }
+        return null;
+    }
+
+    public void deleteAWish(String wishList, String wish) {
+        int wishListID = 0;
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishList);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                wishListID = rs.getInt(1);
+            }
+
+
+            String SQL1 = "DELETE FROM WISHES WHERE NAME=? AND WISHLIST_ID=?";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setString(1, wish);
+            ps1.setInt(2, wishListID);
+            int rs1 = ps1.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteWishlist(String wishList) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+
+
+            String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishList);
+            ResultSet rs = ps.executeQuery();
+            int wishListID = 0;
+            while (rs.next()) {
+                wishListID = rs.getInt(1);
+            }
+            String SQL1 = "DELETE FROM WISHES WHERE WISHLIST_ID=?;";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setInt(1, wishListID);
+            int rs1 = ps1.executeUpdate();
+
+            String SQL2 = "DELETE FROM WISHLISTS WHERE NAME=?;";
+            PreparedStatement ps2 = connection.prepareStatement(SQL2);
+            ps2.setString(1, wishList);
+            int rs2 = ps2.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAWish(Wish wish) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishListWithWishToUpdate);
+            ResultSet rs = ps.executeQuery();
+            int wishListID = 0;
+            while (rs.next()) {
+                wishListID = rs.getInt(1);
+            }
+            System.out.println(wishListID);
+            String SQL1 = "UPDATE WISHES SET DESCRIPTION=?, PRICE=?, LINK=?, AMOUNT=?, STORE=? WHERE NAME=? AND WISHLIST_ID=?";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setString(1, wish.getDescription());
+            ps1.setDouble(2, wish.getPrice());
+            ps1.setString(3, wish.getLink());
+            ps1.setInt(4, wish.getAmount());
+            ps1.setString(5, wish.getStore());
+            ps1.setString(6, wish.getName());
+            ps1.setInt(7, wishListID);
+            int rs1 = ps1.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
