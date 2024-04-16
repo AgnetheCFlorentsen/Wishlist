@@ -146,6 +146,11 @@ public class WishListController {
         return "redirect:/wishwonder";
     }
 
+    @GetMapping("/share/{username}/{wishlist}")
+    public String shareList(@PathVariable String username, @PathVariable String wishlist){
+        return "Sharewishlist";
+    }
+
     /*@ExceptionHandler(Exception.class)
     public String handleError(Model model, Exception exception){
         model.addAttribute("message", "hej");

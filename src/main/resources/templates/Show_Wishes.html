@@ -31,8 +31,12 @@
                 <button type="button" class="button">Edit wish</button>
             </a>
 
+
         </td>
     </tr>
+    <a th:href="@{'/wishwonder/' + ${Wish.wishList} +'/' + ${Wish.name} + '/edit'}">
+        <button type="button" class="button">Share wishlist</button>
+    </a>
     </tbody>
 </table>
 
