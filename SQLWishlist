@@ -2,12 +2,19 @@ create database if not exists WishList default character set utf8;
 use WishList;
 drop table if exists WishLists;
 drop table if exists Wishes;
-drop table if exists WishList_Wish;
+drop table if exists Login;
+
+create table Login (
+Username varchar (50),
+Password varchar (50),
+primary key (username));
 
 create table WishLists (
 ID int auto_increment,
 Name varchar(30) not null,
 description varchar(250),
+username varchar (50),
+foreign key (username) references login(username),
 primary key (ID)
 );
 
@@ -19,12 +26,11 @@ price double,
 link varchar(100),
 amount int,
 store varchar(30),
+WishList_ID int,
+reserved varchar(15),
+foreign key (WishList_ID) references wishlists(ID),
 primary key (ID)
 );
 
-create table WishList_Wish (
-wish_ID int,
-WishList_ID int,
-primary key (wish_ID, WishList_ID),
-foreign key (wish_ID) references wishes(ID),
-foreign key (WishList_ID) references WishLists(ID));
+
+
