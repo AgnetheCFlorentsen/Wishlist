@@ -20,7 +20,7 @@ public class WishListRepositoryDB {
     private String wishListWithWishToUpdate = "";
     private User loggedInUser = new User();
 
-    public String getUsername(){
+    public String getUsername() {
         return loggedInUser.getUsername();
     }
 
@@ -31,7 +31,7 @@ public class WishListRepositoryDB {
             String SQL = "SELECT * FROM wishes";
             ResultSet rs = stmt.executeQuery(SQL);
             while (rs.next()) {
-                allWishes.add(new WishDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
+                allWishes.add(new WishDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDouble(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getString(9)));
             }
         } catch (SQLException e) {
             System.out.println("Cannot connect to database");
@@ -132,7 +132,7 @@ public class WishListRepositoryDB {
                 while (rs.next()) {
                     for (WishDTO wi : allWishes) {
                         if (rs.getInt(1) == wi.getID()) {
-                            Wish wish = new Wish(wi.getName(), wi.getDescription(), wi.getPrice(), wi.getLink(), wi.getAmount(), wi.getStore());
+                            Wish wish = new Wish(wi.getName(), wi.getDescription(), wi.getPrice(), wi.getLink(), wi.getAmount(), wi.getStore(), wi.getReserved());
 
                             wishList.addWish(wish);
                         }
@@ -167,7 +167,7 @@ public class WishListRepositoryDB {
             ResultSet rs1 = ps1.executeQuery();
             List<Wish> wishes = new ArrayList<>();
             while (rs1.next()) {
-                Wish wish = new Wish(rs1.getString(2), rs1.getString(3), rs1.getDouble(4), rs1.getString(5), rs1.getInt(6), rs1.getString(7));
+                Wish wish = new Wish(rs1.getString(2), rs1.getString(3), rs1.getDouble(4), rs1.getString(5), rs1.getInt(6), rs1.getString(7), rs.getString(9));
                 wish.setWishList(wishList);
                 wishes.add(wish);
             }
@@ -186,6 +186,7 @@ public class WishListRepositoryDB {
         }
         return null;
     }
+
 
     public void deleteAWish(String wishList, String wish) {
         int wishListID = 0;
@@ -295,10 +296,31 @@ public class WishListRepositoryDB {
             }
             if (password.equals(user.getPassword())) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void reserveWish(String username, String wishlist, String wish) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=? AND USERNAME=?";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishlist);
+            ps.setString(2, username);
+            ResultSet rs = ps.executeQuery();
+            int wishlistID = 0;
+            while (rs.next()) {
+                wishlistID = rs.getInt(1);
+            }
+            String SQL1 = "UPDATE WISHES SET RESERVED=? WHERE NAME=? AND WISHLIST_ID=?";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setString(1, "reserved");
+            ps1.setString(2, wish);
+            ps1.setInt(2, wishlistID);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -18,16 +18,21 @@
   <tbody>
   <tr th:each="Wish : ${wishes}" th:class="'share-list'">
     <td>
-
+      <p>Name: <strong th:text="${Wish.name}"></strong></p>
       <p>Description: <strong th:text="${Wish.description}"></strong></p>
       <p>Store: <strong th:text="${Wish.store}"></strong></p>
       <p>Price: <strong th:text="${Wish.price}"></strong></p>
       <p>Link: <strong th:text="${Wish.link}"></strong></p>
       <p>Amount: <strong th:text="${Wish.amount}"></strong></p>
+      <form th:action="@{'/wishwonder/' + ${username} + '/' + ${wishlist} + '/' + ${Wish.name}}" method="post">
+      <p>Reserved?: <strong th:text="${Wish.reserved}"></strong></p>
+      <button type="submit" class="button">Reserve wish</button>
+      </form>
 
-      <a th:href="@{'/wishwonder/' + ${Wish.wishList} +'/' + ${Wish.name} + '/share'}">
-        <button type="button" class="buttonshare">Share</button>
-
+    </td>
+  </tr>
+  </tbody>
+</table>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

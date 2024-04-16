@@ -9,8 +9,12 @@ public class WishDTO {
     private int amount;
     private String store;
 
+    private int wishlist_ID;
 
-    public WishDTO(int ID, String name, String description, double price, String link, int amount, String store) {
+    private String reserved;
+
+
+    public WishDTO(int ID, String name, String description, double price, String link, int amount, String store, int wishlist_ID, String reserved) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -18,6 +22,8 @@ public class WishDTO {
         this.link = link;
         this.amount = amount;
         this.store = store;
+        this.wishlist_ID = wishlist_ID;
+        this.reserved = reserved;
     }
 
     @Override
@@ -59,5 +65,9 @@ public class WishDTO {
 
     public String getStore() {
         return store;
+    }
+
+    public String getReserved(){
+        return reserved;
     }
 }

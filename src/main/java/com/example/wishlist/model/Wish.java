@@ -15,19 +15,23 @@ public class Wish {
 
     private String wishList;
 
-    public Wish (String name, String description, double price, String link, int amount, String store){
+    public String reserved;
+
+    public Wish (String name, String description, double price, String link, int amount, String store, String reserved){
         this.amount = 1;
         this.name = name;
         this.description = description;
         this.price = price;
         this.store=store;
+        this.link =link;
+        this.reserved = reserved;
 
     }
 
     public Wish(){
         this.amount = 1;
+        this.reserved = "Not reserved";
     }
-
 
     public String getName() {
         return name;
@@ -47,6 +51,10 @@ public class Wish {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getReserved(){
+        return reserved;
     }
 
     public void setPrice(double price) {
@@ -82,6 +90,11 @@ public class Wish {
 
     public String getWishList(){
         return wishList;
+    }
+
+    public void setIsReserved(String reserved){
+        this.reserved=reserved;
+
     }
 
     public void setWishList(String wishList){

@@ -81,7 +81,9 @@ public class WishListController {
     public String showAll(@PathVariable String name, Model model) {
         //List<Wish> wishes = wishListService.getWishes(name);
         List<Wish> wishes = wdb.getWishes(name);
+        model.addAttribute("username", wdb.getUsername());
         model.addAttribute("wishes", wishes);
+        model.addAttribute("wishlist", name);
         return "Show_Wishes";
     }
 
@@ -146,15 +148,20 @@ public class WishListController {
         return "redirect:/wishwonder";
     }
 
-    @GetMapping("/share/{username}/{wishlist}")
-    public String shareList(@PathVariable String username, @PathVariable String wishlist){
+    @GetMapping("/{username}/{wishlist}")
+    public String shareList(@PathVariable String username, @PathVariable String wishlist, Model model){
+        List<Wish> wishes = wdb.getWishes(wishlist);
+        model.addAttribute("wishes", wishes);
         return "Sharewishlist";
     }
 
-    /*@ExceptionHandler(Exception.class)
-    public String handleError(Model model, Exception exception){
-        model.addAttribute("message", "hej");
-        return "errorpage";
-    }*/
+    @PostMapping("/{username}/{wishlist}/{wish}")
+    public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
+    wdb.reserveWish(username, wishlist, wish);
+    return "redirect:/{username}/{wishlist}";
+    }
+
+
+
 
 }
