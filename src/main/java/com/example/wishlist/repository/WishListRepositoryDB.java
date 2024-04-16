@@ -48,6 +48,7 @@ public class WishListRepositoryDB {
         String link = wish.getLink();
         int amount = wish.getAmount();
         String store = wish.getStore();
+        String reserved = wish.getReserved();
 
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
@@ -61,7 +62,7 @@ public class WishListRepositoryDB {
             }
             System.out.println(wishListID);
 
-            String SQL1 = "insert into wishes (name, description, price, link, amount, store, wishlist_ID) values (?, ?, ?, ?, ?, ?, ?);";
+            String SQL1 = "insert into wishes (name, description, price, link, amount, store, wishlist_ID, reserved) values (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps1 = connection.prepareStatement(SQL1);
             //ps.setInt(1, id);
             ps1.setString(1, name);
@@ -71,6 +72,7 @@ public class WishListRepositoryDB {
             ps1.setInt(5, amount);
             ps1.setString(6, store);
             ps1.setInt(7, wishListID);
+            ps1.setString(8, reserved);
 
             int rs1 = ps1.executeUpdate();
 
