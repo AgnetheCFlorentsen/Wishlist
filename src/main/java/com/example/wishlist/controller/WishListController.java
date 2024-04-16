@@ -27,6 +27,11 @@ public class WishListController {
         return "index";
     }
 
+    @GetMapping("/index")
+    public String getFrontPageLoggedIn(){
+        return "index2";
+    }
+
     @GetMapping("/lists")
     public String getWishLists(Model model){
         //List<WishList> wishLists = wishListService.getWishLists();
@@ -41,7 +46,8 @@ public class WishListController {
 
     @GetMapping("/createlist")
     public String createWishList(Model model){
-        model.addAttribute("wishlist", new WishList());
+        WishList wishList = new WishList();
+        model.addAttribute("wishlist", wishList);
         return "createWishList";
     }
 
@@ -110,6 +116,34 @@ public class WishListController {
        // wishListService.updateAWish(wish);
         wdb.updateAWish(wish);
         return "redirect:/wishwonder/lists";
+    }
+
+    @GetMapping(path="/login")
+    public String login(Model model){
+        model.addAttribute("user", new User());
+        return "Login";
+    }
+
+    @PostMapping("/postlogin")
+    public String login(@ModelAttribute User user, Model model) {
+        if (!wdb.checkUser(user)){
+            model.addAttribute("loginError", "Brugernavn eller password er forkert");
+            return "Login";}
+        else {
+        wdb.login(user);
+        return "redirect:/wishwonder/index";}
+    }
+
+    @GetMapping(path="/createuser")
+    public String createUser(Model model){
+        model.addAttribute("user", new User());
+        return "SignUp";
+    }
+
+    @PostMapping("/saveuser")
+    public String createUser(@ModelAttribute User user) {
+        wdb.createUser(user);
+        return "redirect:/wishwonder";
     }
 
     /*@ExceptionHandler(Exception.class)

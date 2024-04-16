@@ -6,7 +6,7 @@
     <link th:href="@{/main.css}" rel="stylesheet">
 </head>
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/headerlogin :: header}"></div>
 
 <form action="/wishwonder/update" method="post" th:object="${wish}">
     <p th:text="${wish.name}">
