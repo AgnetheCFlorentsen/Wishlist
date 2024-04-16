@@ -16,6 +16,8 @@
   </tr>
   </thead>
   <tbody>
+  <p th:if="${reserveError}" th:text="${reserveError}" class="error-message"></p>
+  <p th:if="${userError}" th:text="${userError}" class="error-message"></p>
   <tr th:each="Wish : ${wishes}" th:class="'share-list'">
     <td>
       <p>Name: <strong th:text="${Wish.name}"></strong></p>
@@ -24,16 +26,15 @@
       <p>Price: <strong th:text="${Wish.price}"></strong></p>
       <p>Link: <strong th:text="${Wish.link}"></strong></p>
       <p>Amount: <strong th:text="${Wish.amount}"></strong></p>
-      <form th:action="@{'/wishwonder/' + ${username} + '/' + ${wishlist} + '/' + ${Wish.name}}" method="post">
       <p>Reserved?: <strong th:text="${Wish.reserved}"></strong></p>
+      <a th:href="@{'/wishwonder/' + ${username} + '/' + ${wishlist} + '/' + ${Wish.name}}">
       <button type="submit" class="button">Reserve wish</button>
-      </form>
+      </a>
 
     </td>
   </tr>
   </tbody>
 </table>
-
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

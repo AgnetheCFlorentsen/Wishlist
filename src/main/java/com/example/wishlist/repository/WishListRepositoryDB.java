@@ -18,7 +18,7 @@ public class WishListRepositoryDB {
     private String pwd;
 
     private String wishListWithWishToUpdate = "";
-    private User loggedInUser = new User();
+    private User loggedInUser = new User("standard");
 
     public String getUsername() {
         return loggedInUser.getUsername();
@@ -49,6 +49,7 @@ public class WishListRepositoryDB {
         int amount = wish.getAmount();
         String store = wish.getStore();
         String reserved = wish.getReserved();
+        String reservedBy = "not reserved";
 
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
@@ -62,9 +63,8 @@ public class WishListRepositoryDB {
             }
             System.out.println(wishListID);
 
-            String SQL1 = "insert into wishes (name, description, price, link, amount, store, wishlist_ID, reserved) values (?, ?, ?, ?, ?, ?, ?, ?);";
+            String SQL1 = "insert into wishes (name, description, price, link, amount, store, wishlist_ID, reserved, reserved_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps1 = connection.prepareStatement(SQL1);
-            //ps.setInt(1, id);
             ps1.setString(1, name);
             ps1.setString(2, description);
             ps1.setDouble(3, price);
@@ -73,6 +73,7 @@ public class WishListRepositoryDB {
             ps1.setString(6, store);
             ps1.setInt(7, wishListID);
             ps1.setString(8, reserved);
+            ps1.setString(9, reservedBy);
 
             int rs1 = ps1.executeUpdate();
 
@@ -91,7 +92,7 @@ public class WishListRepositoryDB {
             ps.setString(1, loggedInUser.getUsername());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                allWishLists.add(new WishListDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
+                allWishLists.add(new WishListDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
             }
         } catch (SQLException e) {
             System.out.println("Cannot connect to database");
@@ -169,7 +170,8 @@ public class WishListRepositoryDB {
             ResultSet rs1 = ps1.executeQuery();
             List<Wish> wishes = new ArrayList<>();
             while (rs1.next()) {
-                Wish wish = new Wish(rs1.getString(2), rs1.getString(3), rs1.getDouble(4), rs1.getString(5), rs1.getInt(6), rs1.getString(7), rs.getString(9));
+                Wish wish = new Wish(rs1.getString(2), rs1.getString(3), rs1.getDouble(4), rs1.getString(5), rs1.getInt(6), rs1.getString(7), rs1.getString(9));
+
                 wish.setWishList(wishList);
                 wishes.add(wish);
             }
@@ -277,6 +279,7 @@ public class WishListRepositoryDB {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             int rs = ps.executeUpdate();
+            loggedInUser.setUsername(user.getUsername());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -307,7 +310,9 @@ public class WishListRepositoryDB {
         }
     }
 
-    public void reserveWish(String username, String wishlist, String wish) {
+    public boolean checkIfReserved(String username, String wishlist, String wish) {
+        String isReserved = "";
+        String reservedBy = "";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
             String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=? AND USERNAME=?";
             PreparedStatement ps = connection.prepareStatement(SQL);
@@ -318,14 +323,73 @@ public class WishListRepositoryDB {
             while (rs.next()) {
                 wishlistID = rs.getInt(1);
             }
-            String SQL1 = "UPDATE WISHES SET RESERVED=? WHERE NAME=? AND WISHLIST_ID=?";
+            String SQL1 = "SELECT RESERVED, RESERVED_BY FROM WISHES  WHERE NAME=? AND WISHLIST_ID=?";
             PreparedStatement ps1 = connection.prepareStatement(SQL1);
-            ps1.setString(1, "reserved");
-            ps1.setString(2, wish);
+            ps1.setString(1, wish);
             ps1.setInt(2, wishlistID);
+            ResultSet rs1 = ps1.executeQuery();
 
+            while (rs1.next()) {
+                isReserved = rs1.getString(1);
+                reservedBy = rs1.getString(2);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        if (isReserved.equals("reserved"))
+            if (!reservedBy.equals(loggedInUser.getUsername())) {
+                return true;
+            }
+
+        return false;
+    }
+
+    public void reserveWish(String username, String wishlist, String wish) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String reserved_by = "";
+            String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=? AND USERNAME=?";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, wishlist);
+            ps.setString(2, username);
+            ResultSet rs = ps.executeQuery();
+            int wishlistID = 0;
+            while (rs.next()) {
+                wishlistID = rs.getInt(1);
+            }
+            String SQL1 = "SELECT RESERVED_BY FROM WISHES WHERE NAME=? AND WISHLIST_ID=?";
+            PreparedStatement ps1 = connection.prepareStatement(SQL1);
+            ps1.setString(1, wish);
+            ps1.setInt(2, wishlistID);
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                reserved_by = rs1.getString(1);
+            }
+            System.out.println(reserved_by);
+            //System.out.println(loggedInUser.getUsername());
+            if (reserved_by.equals(loggedInUser.getUsername())){
+
+            String SQL2 = "UPDATE WISHES SET RESERVED=?, RESERVED_BY=? WHERE NAME=? AND WISHLIST_ID=?";
+            PreparedStatement ps2 = connection.prepareStatement(SQL2);
+                ps2.setString(1, "not reserved");
+                ps2.setString(2, "not reserved");
+                ps2.setString(3, wish);
+                ps2.setInt(4, wishlistID);
+                int rs2 = ps2.executeUpdate();}
+             else {
+                String SQL2 = "UPDATE WISHES SET RESERVED=?, RESERVED_BY=? WHERE NAME=? AND WISHLIST_ID=?";
+                PreparedStatement ps2 = connection.prepareStatement(SQL2);
+                ps2.setString(1, "reserved");
+                ps2.setString(2, loggedInUser.getUsername());
+                ps2.setString(3, wish);
+                ps2.setInt(4, wishlistID);
+                int rs2 = ps2.executeUpdate();
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
     }
 }
+

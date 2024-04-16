@@ -129,7 +129,7 @@ public class WishListController {
     @PostMapping("/postlogin")
     public String login(@ModelAttribute User user, Model model) {
         if (!wdb.checkUser(user)){
-            model.addAttribute("loginError", "Brugernavn eller password er forkert");
+            model.addAttribute("loginError", "Username or password is incorrect");
             return "Login";}
         else {
         wdb.login(user);
@@ -145,7 +145,7 @@ public class WishListController {
     @PostMapping("/saveuser")
     public String createUser(@ModelAttribute User user) {
         wdb.createUser(user);
-        return "redirect:/wishwonder";
+        return "redirect:/wishwonder/index";
     }
 
     @GetMapping("/{username}/{wishlist}")
@@ -155,13 +155,31 @@ public class WishListController {
         return "Sharewishlist";
     }
 
-    @PostMapping("/{username}/{wishlist}/{wish}")
+    @GetMapping("/{username}/{wishlist}/{wish}")
     public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
-    wdb.reserveWish(username, wishlist, wish);
-    return "redirect:/{username}/{wishlist}";
+    //public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
+        List<Wish> wishes = wdb.getWishes(wishlist);
+        model.addAttribute("wishes", wishes);
+        if (wdb.getUsername().equals("standard")){
+            model.addAttribute("userError", "You have to be logged in to reserve an item");
+            return "Sharewishlist";}
+        else if (wdb.checkIfReserved(username, wishlist, wish)) {
+            model.addAttribute("reserveError", "This item is already reserved");
+        return "Sharewishlist";}
+        else {
+            wdb.reserveWish(username, wishlist, wish);
+            return "redirect:/wishwonder/{username}/{wishlist}";
+        }
+
+
+
+        }
+        //wdb.reserveWish(username, wishlist, wish);
+
+    //return "redirect:/{username}/{wishlist}";
+
     }
 
 
 
 
-}

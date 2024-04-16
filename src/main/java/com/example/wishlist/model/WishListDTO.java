@@ -5,10 +5,13 @@ public class WishListDTO {
     private String name;
     private String description;
 
-    public WishListDTO(int ID, String name, String description) {
+    private String username;
+
+    public WishListDTO(int ID, String name, String description, String username) {
         this.ID = ID;
         this.name = name;
         this.description = description;
+        this.username = username;
     }
 
     @Override

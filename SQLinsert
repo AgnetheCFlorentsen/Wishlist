@@ -1,6 +1,7 @@
 insert into login (username, password) values ('testerbrugernavn', '1234');
+insert into login (username, password) values ('johnny', 'john');
 insert into wishlists (name, description, username) values ('wedding', 'wishes for a wonderful wedding', 'testerbrugernavn');
-insert into wishes (name, description, price, store, link, amount, wishlist_ID, reserved) values ('plates', 'for eating', 230, 'imerco', 'google.dk', 4, 1, 'reserved');
-insert into wishes (name, description, price, store, link, amount, wishlist_ID, reserved) values ('dress', 'to wear', 600, 'Veromoda', 'google.dk', 1,1, 'not reserved');
-insert into wishes (name, description, price, store, amount, wishlist_ID, reserved) values ('Hat', 'bowlerhat', 400, 'hatten', 1, 1, 'not reserved');
+insert into wishes (name, description, price, store, link, amount, wishlist_ID, reserved, reserved_by) values ('plates', 'for eating', 230, 'imerco', 'google.dk', 4, 1, 'not reserved', 'not reserved');
+insert into wishes (name, description, price, store, link, amount, wishlist_ID, reserved, reserved_by) values ('dress', 'to wear', 600, 'Veromoda', 'google.dk', 1,1, 'not reserved' , 'not reserved');
+insert into wishes (name, description, price, store, amount, wishlist_ID, reserved, reserved_by) values ('Hat', 'bowlerhat', 400, 'hatten', 1, 1, 'not reserved', 'not reserved');
 

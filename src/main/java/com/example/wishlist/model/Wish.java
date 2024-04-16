@@ -101,4 +101,17 @@ public class Wish {
         this.wishList = wishList;
     }
 
+    @Override
+    public String toString() {
+        return "Wish{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", link='" + link + '\'' +
+                ", amount=" + amount +
+                ", store='" + store + '\'' +
+                ", wishList='" + wishList + '\'' +
+                ", reserved='" + reserved + '\'' +
+                '}';
+    }
 }

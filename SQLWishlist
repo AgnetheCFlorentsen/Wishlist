@@ -28,6 +28,7 @@ amount int,
 store varchar(30),
 WishList_ID int,
 reserved varchar(15),
+reserved_by varchar(30),
 foreign key (WishList_ID) references wishlists(ID),
 primary key (ID)
 );
