@@ -1,9 +1,6 @@
 package com.example.wishlist.repository;
 
-import com.example.wishlist.model.Wish;
-import com.example.wishlist.model.WishDTO;
-import com.example.wishlist.model.WishList;
-import com.example.wishlist.model.WishListDTO;
+import com.example.wishlist.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +17,12 @@ public class WishListRepositoryDB {
     @Value("bNtV!AgN7izA!Kw")
     private String pwd;
 
-    String wishListWithWishToUpdate = "";
+    private String wishListWithWishToUpdate = "";
+    private User loggedInUser = new User();
 
+    public String getUsername(){
+        return loggedInUser.getUsername();
+    }
 
     public ArrayList<WishDTO> getWishes() {
         ArrayList<WishDTO> allWishes = new ArrayList<>();
@@ -83,9 +84,10 @@ public class WishListRepositoryDB {
     public ArrayList<WishListDTO> getWishLists() {
         ArrayList<WishListDTO> allWishLists = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
-            Statement stmt = connection.createStatement();
-            String SQL = "SELECT * FROM WishLists";
-            ResultSet rs = stmt.executeQuery(SQL);
+            String SQL = "SELECT * FROM WishLists WHERE USERNAME=?;";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, loggedInUser.getUsername());
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 allWishLists.add(new WishListDTO(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
@@ -101,11 +103,12 @@ public class WishListRepositoryDB {
         String description = wishList.getDescription();
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
-            String SQL = "insert into wishlists (name, description) values (?, ?);";
+            String SQL = "insert into wishlists (name, description, username) values (?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(SQL);
             //ps.setInt(1, id);
             ps.setString(1, name);
             ps.setString(2, description);
+            ps.setString(3, loggedInUser.getUsername());
             int rs = ps.executeUpdate();
 
 
@@ -175,7 +178,7 @@ public class WishListRepositoryDB {
         }
     }
 
-    public Wish getOneWish(List<Wish>wishes, String wish) {
+    public Wish getOneWish(List<Wish> wishes, String wish) {
         for (Wish w : wishes) {
             if (w.getName().equalsIgnoreCase(wish)) {
                 return w;
@@ -258,6 +261,44 @@ public class WishListRepositoryDB {
             ps1.setString(6, wish.getName());
             ps1.setInt(7, wishListID);
             int rs1 = ps1.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createUser(User user) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "INSERT INTO LOGIN (USERNAME, PASSWORD) VALUES (?,?)";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            int rs = ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void login(User user) {
+        loggedInUser.setUsername(user.getUsername());
+    }
+
+    public boolean checkUser(User user) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+            String SQL = "SELECT * FROM LOGIN WHERE USERNAME=?";
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, user.getUsername());
+            String password = "";
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                password = rs.getString(2);
+            }
+            if (password.equals(user.getPassword())) {
+                return true;
+            }
+            else {
+                return false;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

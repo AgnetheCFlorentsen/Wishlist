@@ -1,9 +1,6 @@
 package com.example.wishlist.controller;
 
-import com.example.wishlist.model.Wish;
-import com.example.wishlist.model.WishDTO;
-import com.example.wishlist.model.WishList;
-import com.example.wishlist.model.WishListDTO;
+import com.example.wishlist.model.*;
 import com.example.wishlist.repository.WishListRepositoryDB;
 import com.example.wishlist.service.WishListService;
 import org.springframework.stereotype.Controller;
