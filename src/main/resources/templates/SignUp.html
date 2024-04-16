@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up to Wishwonder now!</title>
+    <link th:href="@{/main.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+    <h1>Sign Up</h1>
+    <form th:action="@{/wishwonder/saveuser}" th:object="${user}" method="post">
+        <div class="Form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:field="*{username}" required>
+        </div>
+        <div class="Form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" th:field="*{password}" required>
+        </div>
+        <button type="submit" class="button">Sign Up</button>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+</main>
+</body>
+</html>
+
