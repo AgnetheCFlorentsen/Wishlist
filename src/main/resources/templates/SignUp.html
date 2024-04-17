@@ -9,7 +9,7 @@
 <div th:replace="fragments/header :: header"></div>
 
 <main class="signup">
-    <h2>Sign Up</h2>
+    <h2>Create an account!</h2>
     <form th:action="@{/wishwonder/saveuser}" method="post">
         <div class="form-group">
             <label for="username">Username:</label>
@@ -23,5 +23,6 @@
     </form>
 </main>
 
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

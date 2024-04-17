@@ -169,7 +169,7 @@ main.Login {
     background: #ffffff;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 16px rgb(37, 63, 57);
     width: 350px;
     margin: auto;
     display: flex;
@@ -179,7 +179,7 @@ main.Login {
 
 
 main.Login h1 {
-    color: #333;
+    color: #253f39;
     margin-bottom: 20px;
 }
 
@@ -273,7 +273,7 @@ input[type="text"]:focus, select:focus {
 
 .signup {
     background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgb(77, 148, 133);
     border-radius: 8px;
     width: 100%;
     max-width: 350px;
@@ -775,8 +775,8 @@ select:focus {
     transition: all 0.3s ease;
     margin-right: 10px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    background-image: linear-gradient(to right, #9ec5bc, #8db6ab);
+    box-shadow: 0 2px 8px rgb(77, 122, 102);
+    background-image: linear-gradient(to right, #6c9893, #e9f3f3);
     position: relative;
     overflow: hidden;
 }
