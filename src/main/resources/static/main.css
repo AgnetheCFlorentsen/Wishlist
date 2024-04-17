@@ -26,7 +26,6 @@ img {
 }
 
 
-/* Header Styles */
 .site-header {
     display: flex;
     justify-content: space-between;
@@ -51,7 +50,22 @@ img {
     margin-right: 60px;
 }
 
-/* Navigation Styles */
+.logo-link {
+    display: inline-block;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0; /
+    text-decoration: none;
+}
+
+.logo-link img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+
 nav {
     flex-grow: 1;
     text-align: right;
@@ -97,7 +111,7 @@ nav ul li a:hover::after, nav ul li a:focus::after {
     transform: scaleX(1);
 }
 
-/* Footer Styles */
+
 footer {
     background-color: var(--main-bg-gradient-end);
     color: var(--hover-effect-color);
@@ -111,7 +125,7 @@ footer a:hover {
     transform: translateY(-3px);
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .site-header, .statistics-section .statistics-content, .download-app-container {
         flex-direction: column;
@@ -151,7 +165,80 @@ footer a:hover {
 }
 
 
-/* Forms and Buttons */
+main.Login {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+main.Login h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+form.Login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+form.Login label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+
+form.Login input[type="text"],
+form.Login input[type="password"] {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+form.Login input[type="text"]:focus,
+form.Login input[type="password"]:focus {
+    border-color: #4d9485;
+    box-shadow: 0 0 8px rgb(77, 122, 102);
+    outline: none;
+}
+
+
+.button {
+    background-color: #5e8a83;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+.button:hover {
+    background-color: #253f39; /
+}
+
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
 input[type="submit"], .cta {
     background-color: var(--main-bg-gradient-start);
     color: white;
@@ -182,6 +269,91 @@ input[type="text"], select {
 input[type="text"]:focus, select:focus {
     border-color: var(--hover-effect-color);
     box-shadow: 0 0 0 2px rgba(61, 132, 118, 0.5);
+}
+
+.signup {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.signup .form-group {
+    margin-bottom: 1rem;
+}
+
+.signup label {
+    display: block;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.signup input[type="text"],
+.signup input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+
+.signup input[type="text"]:focus,
+.signup input[type="password"]:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 3px rgba(128, 189, 255, 0.25);
+    outline: none;
+}
+
+
+.signup .submit-btn {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #4d7a66;
+    border-color: #253f39;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.signup .submit-btn:hover {
+    background-color: #253f39;
+    border-color: #4d7a66;
+}
+
+.signup .error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+
+.signup .error-message.show {
+    height: auto;
+    opacity: 1;
+    margin-top: 0.5rem;
+}
+
+
+.signup .error-message.active {
+    opacity: 1;
+    max-height: 50px;
 }
 
 form {
@@ -244,14 +416,14 @@ select:focus {
     box-shadow: 0 0 0 2px rgb(61, 132, 118);
 }
 
-/* Importing a Google Font */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .hero {
-    background: linear-gradient(135deg, #e6f8ea 0%, #f0f4f8 100%); /* Subtle gradient */
-    padding: 5vw; /* Responsive padding */
+    background: linear-gradient(135deg, #e6f8ea 0%, #f0f4f8 100%);
+    padding: 5vw;
     text-align: center;
-    font-family: 'Roboto', sans-serif; /* Newly imported font */
+    font-family: 'Roboto', sans-serif;
     margin: 50px;
     border-bottom: white;
     border-bottom: 20px;
@@ -270,6 +442,37 @@ select:focus {
     color: #3d8476;
     margin-bottom: 2rem;
     font-weight: 400;
+}
+
+.hero, .statistics-section, .download-app-section, .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.full-width-image, .qr-code {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.store-buttons, .statistics-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.store-buttons a {
+    margin: 0 10px;
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cta {
@@ -525,16 +728,16 @@ select:focus {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: auto; /* Centers the section in the middle of the page horizontally */
-    padding: 20px; /* Add some padding inside the box */
-    border: 1px solid #ccc; /* A light grey border for the box */
-    border-radius: 10px; /* Optional: rounds the corners of the box */
-    max-width: 500px; /* Maximum width of the box */
-    width: 100%; /* Makes the width respond to the size of the screen */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* A subtle shadow for some depth */
-    background: #fff; /* White background for the content */
-    margin-top: 50px; /* Adjust the top margin to position the box within your view */
-    margin-bottom: 50px; /* Adjust the bottom margin for spacing */
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .site-header .home-link {
@@ -561,56 +764,42 @@ select:focus {
         align-items: center;
     }
 
-    .login-button {
-        background-color: #b6ffd7;
-        color: #285943;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    }
-
-    .login-button:hover, .login-button:focus {
-        background-color: #8ce5ba;
-        color: white;
-    }
-
-
-    .login-box {
-        border: 2px solid #285943;
-        padding: 5px;
-        border-radius: 4px;
-        display: inline-flex;
-        align-items: center;
-        margin-left: 20px;
-    }
-
-.create-user {
-    background-color: #b6ffd7;
+.login-button, .create-button {
+    background-color: #9ec5bc;
     color: #285943;
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to right, #9ec5bc, #8db6ab);
+    position: relative;
+    overflow: hidden;
 }
 
-.create-user:hover, .create-user:focus {
-    background-color: #8ce5ba;
+
+.login-button:hover, .create-button:hover {
+    background-color: #8db6ab;
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-
-.create-button-box {
-    border: 2px solid #285943;
+.login-button, .create-button {
     padding: 5px;
     border-radius: 4px;
     display: inline-flex;
     align-items: center;
     margin-left: 20px;
+
+}
+
+.create-button:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
 }
 
     @media (max-width: 768px) {
@@ -747,7 +936,7 @@ label {
     margin-bottom: 5px;
 }
 
-/* Style the submit button */
+
 input[type="submit"] {
     width: auto;
     padding: 12px 24px;
@@ -782,33 +971,6 @@ input[type="submit"] {
         max-width: 500px;
         width: 100%;
         margin: 2rem;
-    }
-
-    .btn-create-wishlist {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
-        color: #FFF;
-        background-image: linear-gradient(to right, #6dd5ed, #2193b0);
-        border: none;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 1px;
-        box-shadow: 0 5px 15px rgba(33, 147, 176, 0.4);
-        outline: none;
-        margin-top: 20px;
-    }
-
-    .btn-create-wishlist:hover, .btn-create-wishlist:focus {
-        background-image: linear-gradient(to right, #2193b0, #6dd5ed);
-        box-shadow: 0 8px 25px rgba(33, 147, 176, 0.5);
-        transform: translateY(-2px);
-    }
-    .error-message {
-        color: red;
-        font-size: 0.8em;
     }
 
 
