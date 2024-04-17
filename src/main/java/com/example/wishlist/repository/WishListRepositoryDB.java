@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 public class WishListRepositoryDB {
-    @Value("jdbc:mysql://localhost:3306/WishList")
+    @Value("${spring.datasource.url}")
     private String db_url;
-    @Value("root")
-    private String username;
-    @Value("bNtV!AgN7izA!Kw")
+    @Value("${spring.datasource.username}")
+    private String SQLusername;
+    @Value("${spring.datasource.password}")
     private String pwd;
 
     private String wishListWithWishToUpdate = "";
@@ -26,7 +26,7 @@ public class WishListRepositoryDB {
 
     public ArrayList<WishDTO> getWishes() {
         ArrayList<WishDTO> allWishes = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             Statement stmt = connection.createStatement();
             String SQL = "SELECT * FROM wishes";
             ResultSet rs = stmt.executeQuery(SQL);
@@ -52,7 +52,7 @@ public class WishListRepositoryDB {
         String reservedBy = "not reserved";
 
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=?";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, wish.getWishList());
@@ -86,7 +86,7 @@ public class WishListRepositoryDB {
 
     public ArrayList<WishListDTO> getWishLists() {
         ArrayList<WishListDTO> allWishLists = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT * FROM WishLists WHERE USERNAME=?;";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, loggedInUser.getUsername());
@@ -105,7 +105,7 @@ public class WishListRepositoryDB {
         String name = wishList.getName();
         String description = wishList.getDescription();
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "insert into wishlists (name, description, username) values (?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(SQL);
             //ps.setInt(1, id);
@@ -122,7 +122,7 @@ public class WishListRepositoryDB {
 
     public List<WishList> getAllWishLists(ArrayList<WishListDTO> allWishLists, ArrayList<WishDTO> allWishes) {
         List<WishList> wishListList = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             for (WishListDTO w : allWishLists) {
                 WishList wishList = new WishList(w.getName(), w.getDescription());
 
@@ -154,7 +154,7 @@ public class WishListRepositoryDB {
     }
 
     public List<Wish> getWishes(String wishList) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, wishList);
@@ -195,7 +195,7 @@ public class WishListRepositoryDB {
     public void deleteAWish(String wishList, String wish) {
         int wishListID = 0;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, wishList);
@@ -219,7 +219,7 @@ public class WishListRepositoryDB {
     }
 
     public void deleteWishlist(String wishList) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
 
 
             String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
@@ -246,7 +246,7 @@ public class WishListRepositoryDB {
     }
 
     public void updateAWish(Wish wish) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT * FROM WISHLISTS WHERE NAME=?;";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, wishListWithWishToUpdate);
@@ -273,7 +273,7 @@ public class WishListRepositoryDB {
     }
 
     public void createUser(User user) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "INSERT INTO LOGIN (USERNAME, PASSWORD) VALUES (?,?)";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, user.getUsername());
@@ -290,7 +290,7 @@ public class WishListRepositoryDB {
     }
 
     public boolean checkUser(User user) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT * FROM LOGIN WHERE USERNAME=?";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, user.getUsername());
@@ -313,7 +313,7 @@ public class WishListRepositoryDB {
     public boolean checkIfReserved(String username, String wishlist, String wish) {
         String isReserved = "";
         String reservedBy = "";
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=? AND USERNAME=?";
             PreparedStatement ps = connection.prepareStatement(SQL);
             ps.setString(1, wishlist);
@@ -345,7 +345,7 @@ public class WishListRepositoryDB {
     }
 
     public void reserveWish(String username, String wishlist, String wish) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/WishList", "root", "bNtV!AgN7izA!Kw")) {
+        try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String reserved_by = "";
             String SQL = "SELECT ID FROM WISHLISTS WHERE NAME=? AND USERNAME=?";
             PreparedStatement ps = connection.prepareStatement(SQL);
