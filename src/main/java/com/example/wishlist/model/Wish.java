@@ -17,19 +17,18 @@ public class Wish {
 
     public String reserved;
 
-    public Wish (String name, String description, double price, String link, int amount, String store, String reserved){
-        this.amount = 1;
+    public Wish(String name, String description, double price, String link, int amount, String store, String reserved) {
+        this.amount = amount;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.store=store;
-        this.link =link;
+        this.store = store;
+        this.link = link;
         this.reserved = reserved;
 
     }
 
-    public Wish(){
-        this.amount = 1;
+    public Wish() {
         this.reserved = "Not reserved";
     }
 
@@ -53,7 +52,7 @@ public class Wish {
         return price;
     }
 
-    public String getReserved(){
+    public String getReserved() {
         return reserved;
     }
 
@@ -66,10 +65,20 @@ public class Wish {
     }
 
     public void setLink(String link) {
-       this.link = link;
+        if (link.contains(".")) {
+            String[] linkCheck = link.split("\\.");
+            if (linkCheck.length == 2) {
+                if (linkCheck[1].length() < 5) {
+                    this.link = link;
+                }
+            } else if (linkCheck.length == 3) {
+                if (linkCheck[2].length() < 5) {
+                    this.link = link;
+                }
+            }
+        }
 
-       }
-
+    }
 
 
     public int getAmount() {
@@ -77,7 +86,14 @@ public class Wish {
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+
+            if (amount > 0) {
+                this.amount = amount;
+            } else {
+                this.amount = 1;
+            }
+
+
     }
 
     public String getStore() {
