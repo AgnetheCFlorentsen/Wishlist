@@ -16,7 +16,6 @@ public class WishListController {
 
 
     private WishListService wishListService;
-    WishListRepositoryDB wdb = new WishListRepositoryDB();
 
     public WishListController(WishListService wishListService){
         this.wishListService = wishListService;
@@ -35,9 +34,9 @@ public class WishListController {
     @GetMapping("/lists")
     public String getWishLists(Model model){
         //List<WishList> wishLists = wishListService.getWishLists();
-        ArrayList<WishDTO> wish = wdb.getWishes();
-        ArrayList<WishListDTO> wishlist= wdb.getWishLists();
-        List<WishList> wishLists = wdb.getAllWishLists(wishlist, wish);
+        ArrayList<WishDTO> wish = wishListService.getWishes();
+        ArrayList<WishListDTO> wishlist= wishListService.getWishLists();
+        List<WishList> wishLists = wishListService.getAllWishLists(wishlist, wish);
         model.addAttribute("wishlists", wishLists);
        // System.out.println(wdb.getWishes());
 
@@ -54,7 +53,7 @@ public class WishListController {
     @PostMapping("/savelist")
     public String createWishList(@ModelAttribute WishList wishlist){
        // wishListService.createWishList(wishlist);
-        wdb.saveAWishList(wishlist);
+        wishListService.saveAWishList(wishlist);
         return "redirect:/wishwonder";
 
     }
@@ -62,9 +61,9 @@ public class WishListController {
     @GetMapping("/createwish")
     public String addWish(Model model){
         model.addAttribute("wish", new Wish());
-        ArrayList<WishDTO> wish = wdb.getWishes();
-        ArrayList<WishListDTO> wishlist= wdb.getWishLists();
-        List<WishList> wishLists = wdb.getAllWishLists(wishlist, wish);
+        ArrayList<WishDTO> wish = wishListService.getWishes();
+        ArrayList<WishListDTO> wishlist= wishListService.getWishLists();
+        List<WishList> wishLists = wishListService.getAllWishLists(wishlist, wish);
         model.addAttribute("wishlists", wishLists);
         return "AddWish";
     }
@@ -72,7 +71,7 @@ public class WishListController {
     @PostMapping("/savewish")
     public String createWish(@ModelAttribute Wish wish){
         //wishListService.addWish(wish);
-        wdb.saveAWish(wish);
+        wishListService.saveAWish(wish);
       //  WishList wishlist = wishListService.getAWishList(wish.getWishList());
         return "redirect:/wishwonder/lists";
     }
@@ -80,8 +79,8 @@ public class WishListController {
     @GetMapping("/{name}/list")
     public String showAll(@PathVariable String name, Model model) {
         //List<Wish> wishes = wishListService.getWishes(name);
-        List<Wish> wishes = wdb.getWishes(name);
-        model.addAttribute("username", wdb.getUsername());
+        List<Wish> wishes = wishListService.getWishes(name);
+        model.addAttribute("username", wishListService.getUsername());
         model.addAttribute("wishes", wishes);
         model.addAttribute("wishlist", name);
         return "Show_Wishes";
@@ -92,8 +91,7 @@ public class WishListController {
         //WishList wishList1 = wishListService.getAWishList(wishlist);
         //Wish wishToDelete = wishListService.getAWish(wish, wishlist);
         //wishListService.deleteAWish(wishToDelete, wishList1);
-        System.out.println(wishlist);
-        wdb.deleteAWish(wishlist, wish);
+        wishListService.deleteAWish(wishlist, wish);
         return "redirect:/wishwonder/{wishlist}/list";
     }
 
@@ -101,14 +99,14 @@ public class WishListController {
     public String deleteAWishList (@PathVariable String wishlist, Model model){
         //WishList wishListToDelete = wishListService.getAWishList(wishlist);
        // wishListService.deleteAWishList(wishListToDelete);
-        wdb.deleteWishlist(wishlist);
+        wishListService.deleteWishlist(wishlist);
         return "redirect:/wishwonder/lists";
     }
     @GetMapping(path="/{wishlist}/{wish}/edit")
     public String updateWish (@PathVariable String wish, @PathVariable String wishlist, Model model){
        // Wish wishToUpdate = wishListService.getAWish(wish, wishlist);
-        List<Wish> wishes = wdb.getWishes(wishlist);
-        Wish wishToUpdate = wdb.getOneWish(wishes, wish);
+        List<Wish> wishes = wishListService.getWishes(wishlist);
+        Wish wishToUpdate = wishListService.getOneWish(wishes, wish);
         model.addAttribute("wish", wishToUpdate);
         return "UpdateWish";
     }
@@ -116,7 +114,7 @@ public class WishListController {
     @PostMapping(path="/update")
     public String updateWish(Wish wish){
        // wishListService.updateAWish(wish);
-        wdb.updateAWish(wish);
+        wishListService.updateAWish(wish);
         return "redirect:/wishwonder/lists";
     }
 
@@ -128,11 +126,11 @@ public class WishListController {
 
     @PostMapping("/postlogin")
     public String login(@ModelAttribute User user, Model model) {
-        if (!wdb.checkUser(user)){
+        if (!wishListService.checkUser(user)){
             model.addAttribute("loginError", "Username or password is incorrect");
             return "Login";}
         else {
-        wdb.login(user);
+        wishListService.login(user);
         return "redirect:/wishwonder/index";}
     }
 
@@ -144,13 +142,13 @@ public class WishListController {
 
     @PostMapping("/saveuser")
     public String createUser(@ModelAttribute User user) {
-        wdb.createUser(user);
+        wishListService.createUser(user);
         return "redirect:/wishwonder/index";
     }
 
     @GetMapping("/{username}/{wishlist}")
     public String shareList(@PathVariable String username, @PathVariable String wishlist, Model model){
-        List<Wish> wishes = wdb.getWishes(wishlist);
+        List<Wish> wishes = wishListService.getWishes(wishlist);
         model.addAttribute("wishes", wishes);
         return "Sharewishlist";
     }
@@ -158,26 +156,22 @@ public class WishListController {
     @GetMapping("/{username}/{wishlist}/{wish}")
     public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
     //public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
-        List<Wish> wishes = wdb.getWishes(wishlist);
+        List<Wish> wishes = wishListService.getWishes(wishlist);
         model.addAttribute("wishes", wishes);
-        if (wdb.getUsername().equals("standard")){
+        if (wishListService.getUsername().equals("standard")){
             model.addAttribute("userError", "You have to be logged in to reserve an item");
             return "Sharewishlist";}
-        else if (wdb.checkIfReserved(username, wishlist, wish)) {
+        else if (wishListService.checkIfReserved(username, wishlist, wish)) {
             model.addAttribute("reserveError", "This item is already reserved");
         return "Sharewishlist";}
         else {
-            wdb.reserveWish(username, wishlist, wish);
+            wishListService.reserveWish(username, wishlist, wish);
             return "redirect:/wishwonder/{username}/{wishlist}";
         }
 
 
 
         }
-        //wdb.reserveWish(username, wishlist, wish);
-
-    //return "redirect:/{username}/{wishlist}";
-
     }
 
 
