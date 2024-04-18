@@ -8,10 +8,10 @@
 <body class="add-a-wish">
 <div th:replace="~{fragments/headerlogin :: header}"></div>
 
-<!-- Centered Form Container -->
+
 <div class="form-container">
     <form action="/wishwonder/savewish" th:object="${wish}" method="post">
-        <!-- Use div to group label and input for better control -->
+
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" th:field="*{name}" />
@@ -46,9 +46,9 @@
     </form>
 </div>
 
-<!-- Image Container with a Grid Layout -->
+
 <div class="image-grid">
-    <!-- Populate with your images -->
+
 </div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
