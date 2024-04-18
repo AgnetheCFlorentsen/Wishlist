@@ -22,7 +22,6 @@
                 <button type="button" class="button" th:text="${wishList.name}"></button>
             </a>
             <p>Description: <strong th:text="${wishList.description}"></strong></p>
-            <p>Amount of items: <strong th:text="${wishList.amountOfWishes}"></strong></p>
             <a th:href="@{${wishList.name} + '/delete'}">
                 <button type="button" class="button">Delete List</button>
             </a>

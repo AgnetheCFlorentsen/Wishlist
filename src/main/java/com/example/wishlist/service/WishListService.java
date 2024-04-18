@@ -14,35 +14,36 @@ public class WishListService {
     private WishListRepository repository;
 
     private WishListRepositoryDB repositoryDB;
-    public WishListService (WishListRepositoryDB repositoryDB) {
+
+    public WishListService(WishListRepositoryDB repositoryDB) {
         this.repositoryDB = repositoryDB;
     }
 
-    public ArrayList<WishDTO> getWishes(){
+    public ArrayList<WishDTO> getWishes() {
         return repositoryDB.getWishes();
     }
 
-    public ArrayList<WishListDTO> getWishLists(){
+    public ArrayList<WishListDTO> getWishLists() {
         return repositoryDB.getWishLists();
     }
 
-    public List<WishList> getAllWishLists(ArrayList<WishListDTO> allWishLists, ArrayList<WishDTO> allWishes){
+    public List<WishList> getAllWishLists(ArrayList<WishListDTO> allWishLists, ArrayList<WishDTO> allWishes) {
         return repositoryDB.getAllWishLists(allWishLists, allWishes);
     }
 
-    public void saveAWishList(WishList wishList){
+    public void saveAWishList(WishList wishList) {
         repositoryDB.saveAWishList(wishList);
     }
 
-    public void saveAWish(Wish wish){
+    public void saveAWish(Wish wish) {
         repositoryDB.saveAWish(wish);
     }
 
     public List<Wish> getWishes(String wishList) {
-       return repositoryDB.getWishes(wishList);
+        return repositoryDB.getWishes(wishList);
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return repositoryDB.getUsername();
     }
 
@@ -50,15 +51,15 @@ public class WishListService {
         repositoryDB.deleteAWish(wishList, wish);
     }
 
-    public void deleteWishlist(String wishList){
+    public void deleteWishlist(String wishList) {
         repositoryDB.deleteWishlist(wishList);
     }
 
-    public Wish getOneWish(List<Wish> wishes, String wish){
+    public Wish getOneWish(List<Wish> wishes, String wish) {
         return repositoryDB.getOneWish(wishes, wish);
     }
 
-    public void updateAWish(Wish wish){
+    public void updateAWish(Wish wish) {
         repositoryDB.updateAWish(wish);
     }
 
@@ -82,38 +83,4 @@ public class WishListService {
         repositoryDB.reserveWish(username, wishlist, wish);
     }
 
-   /* public void createWishList(WishList wishList){
-        repository.createWishList(wishList);
-    }
-
-    public List<WishList> getWishLists(){
-       return repository.getWishLists();
-    }
-
-    public void addWish(Wish wish){
-        repository.addWish(wish);
-    }
-
-    public List<Wish> getWishes(String wishList){
-        return repository.getWishes(wishList);
-    }
-
-    public Wish getAWish(String wish, String wishList){
-        return repository.getAWish(wish, wishList);
-    }
-
-    public void deleteAWish(Wish wish, WishList wishList){
-        repository.deleteAWish(wish, wishList);
-    }
-
-    public WishList getAWishList(String wishList){
-        return repository.getAWishList(wishList);
-    }
-    public void deleteAWishList (WishList wishList) {
-        repository.deleteAWishList(wishList);
-    }
-
-    public void updateAWish(Wish wish){
-        repository.updateWish(wish);
-    }*/
 }

@@ -61,7 +61,6 @@ public class WishListRepositoryDB {
             while (rs.next()) {
                 wishListID = rs.getInt(1);
             }
-            System.out.println(wishListID);
 
             String SQL1 = "insert into wishes (name, description, price, link, amount, store, wishlist_ID, reserved, reserved_by) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps1 = connection.prepareStatement(SQL1);
@@ -108,7 +107,6 @@ public class WishListRepositoryDB {
         try (Connection connection = DriverManager.getConnection(db_url, SQLusername, pwd)) {
             String SQL = "insert into wishlists (name, description, username) values (?, ?, ?);";
             PreparedStatement ps = connection.prepareStatement(SQL);
-            //ps.setInt(1, id);
             ps.setString(1, name);
             ps.setString(2, description);
             ps.setString(3, loggedInUser.getUsername());
@@ -365,7 +363,6 @@ public class WishListRepositoryDB {
                 reserved_by = rs1.getString(1);
             }
             System.out.println(reserved_by);
-            //System.out.println(loggedInUser.getUsername());
             if (reserved_by.equals(loggedInUser.getUsername())){
 
             String SQL2 = "UPDATE WISHES SET RESERVED=?, RESERVED_BY=? WHERE NAME=? AND WISHLIST_ID=?";

@@ -33,12 +33,10 @@ public class WishListController {
 
     @GetMapping("/lists")
     public String getWishLists(Model model){
-        //List<WishList> wishLists = wishListService.getWishLists();
         ArrayList<WishDTO> wish = wishListService.getWishes();
         ArrayList<WishListDTO> wishlist= wishListService.getWishLists();
         List<WishList> wishLists = wishListService.getAllWishLists(wishlist, wish);
         model.addAttribute("wishlists", wishLists);
-       // System.out.println(wdb.getWishes());
 
         return "SeeLists";
     }
@@ -52,7 +50,6 @@ public class WishListController {
 
     @PostMapping("/savelist")
     public String createWishList(@ModelAttribute WishList wishlist){
-       // wishListService.createWishList(wishlist);
         wishListService.saveAWishList(wishlist);
         return "redirect:/wishwonder";
 
@@ -70,15 +67,12 @@ public class WishListController {
 
     @PostMapping("/savewish")
     public String createWish(@ModelAttribute Wish wish){
-        //wishListService.addWish(wish);
         wishListService.saveAWish(wish);
-      //  WishList wishlist = wishListService.getAWishList(wish.getWishList());
         return "redirect:/wishwonder/lists";
     }
 
     @GetMapping("/{name}/list")
     public String showAll(@PathVariable String name, Model model) {
-        //List<Wish> wishes = wishListService.getWishes(name);
         List<Wish> wishes = wishListService.getWishes(name);
         model.addAttribute("username", wishListService.getUsername());
         model.addAttribute("wishes", wishes);
@@ -88,23 +82,17 @@ public class WishListController {
 
     @GetMapping(path = "/{wishlist}/{wish}/delete")
     public String deleteAWish (@PathVariable String wishlist, @PathVariable String wish, Model model){
-        //WishList wishList1 = wishListService.getAWishList(wishlist);
-        //Wish wishToDelete = wishListService.getAWish(wish, wishlist);
-        //wishListService.deleteAWish(wishToDelete, wishList1);
         wishListService.deleteAWish(wishlist, wish);
         return "redirect:/wishwonder/{wishlist}/list";
     }
 
     @GetMapping(path = "/{wishlist}/delete")
     public String deleteAWishList (@PathVariable String wishlist, Model model){
-        //WishList wishListToDelete = wishListService.getAWishList(wishlist);
-       // wishListService.deleteAWishList(wishListToDelete);
         wishListService.deleteWishlist(wishlist);
         return "redirect:/wishwonder/lists";
     }
     @GetMapping(path="/{wishlist}/{wish}/edit")
     public String updateWish (@PathVariable String wish, @PathVariable String wishlist, Model model){
-       // Wish wishToUpdate = wishListService.getAWish(wish, wishlist);
         List<Wish> wishes = wishListService.getWishes(wishlist);
         Wish wishToUpdate = wishListService.getOneWish(wishes, wish);
         model.addAttribute("wish", wishToUpdate);
@@ -113,7 +101,6 @@ public class WishListController {
 
     @PostMapping(path="/update")
     public String updateWish(Wish wish){
-       // wishListService.updateAWish(wish);
         wishListService.updateAWish(wish);
         return "redirect:/wishwonder/lists";
     }
@@ -155,7 +142,6 @@ public class WishListController {
 
     @GetMapping("/{username}/{wishlist}/{wish}")
     public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
-    //public String reserveWish(@PathVariable String username, @PathVariable String wishlist, @PathVariable String wish, Model model){
         List<Wish> wishes = wishListService.getWishes(wishlist);
         model.addAttribute("wishes", wishes);
         if (wishListService.getUsername().equals("standard")){
