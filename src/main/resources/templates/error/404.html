@@ -2,10 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>404</title>
+    <title>404 Error - Page Not Found</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 100px;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        h1 {
+            color: #e84393;
+            font-size: 48px;
+            animation: pulse 1.5s infinite;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        img {
+            margin-top: 40px;
+            width: 50%;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        img:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 <body>
-<h1> SORRY, something went wrong :( 404</h1>
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWsycnoxc2N3N253bmM0MjNnbGZrdmdxaG03YmVzcnViZGl2cHAzNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fj85dga9fePz63b8yd/giphy.gif" alt="Beskrivelse af din GIF">
+<h1>Oops! 404 Error</h1>
+<p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWsycnoxc2N3N253bmM0MjNnbGZrdmdxaG03YmVzcnViZGl2cHAzNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fj85dga9fePz63b8yd/giphy.gif" alt="404 Error GIF">
 </body>
 </html>
