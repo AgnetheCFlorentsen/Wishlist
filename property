@@ -1,4 +1,0 @@
-server.port=8081
-spring.datasource.url=jdbc:mysql://wishwonder.mysql.database.azure.com:3306/wishlist
-spring.datasource.username=WishwonderAdmin
-spring.datasource.password=StudiegruppeMAS1!

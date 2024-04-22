@@ -127,7 +127,7 @@ public class WishListRepositoryDB {
                 int id = w.getID();
                 String SQL = "SELECT * FROM WISHLISTS WHERE ID=?;";
                 PreparedStatement ps = connection.prepareStatement(SQL);
-                //ps.setInt(1, id);
+
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
