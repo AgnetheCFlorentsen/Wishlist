@@ -1174,7 +1174,7 @@ input[type="submit"] {
     width: 90%;
     max-width: 800px;
     margin: 20px auto;
-    border-collapse: collapse; 
+    border-collapse: collapse;
 }
 
 .hightlight-list thead th {
